@@ -16,13 +16,14 @@ const sdk = new BoxSDK({
 	}
 });
 
-// Create new basic client with developer token
+// Create new basic client with enterprise token
+//TODO: FIX!!! This is not working, we can't use the developer key since it expires every hour
 var client = sdk.getAppAuthClient('enterprise', process.env.BOX_ENTERPRISE_ID);
+
 const folderId = '58640691930';
 
 async function runBackup() {
 	await backup({
-		 
 		uri: process.env.MONGODB_URI,
 		root: __dirname + "/", // write files into this dir
 		tar: 'dump-me.tar',
@@ -62,6 +63,7 @@ function uploadBackup() {
 
 async function getBackupIds() {
 	let ids = {};
+
 	await client.folders.getItems(folderId, {}, function(err, res){
 		if (err) {
 			console.log("error", err);
