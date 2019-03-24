@@ -9,11 +9,15 @@ const BoxSDK = require('box-node-sdk');
 const sdk = new BoxSDK({
 	clientID: process.env.BOX_CLIENT_ID,
 	clientSecret: process.env.BOX_CLIENT_SECRET,
-	
+	appAuth: {
+		keyID: process.env.BOX_KEY_ID,
+		privateKey: process.env.BOX_PRIVATE_KEY,
+		passphrase: process.env.BOX_PRIVATE_PASS,
+	}
 });
 
 // Create new basic client with developer token
-const client = sdk.getBasicClient(process.env.BOX_DEV_TOKEN);
+var client = sdk.getAppAuthClient('enterprise', process.env.BOX_ENTERPRISE_ID);
 const folderId = '58640691930';
 
 async function runBackup() {

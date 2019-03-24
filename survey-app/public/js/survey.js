@@ -22,6 +22,7 @@ var localStorageStuff = localStorageStuff || (function () {
 		
 		$(":submit").on("click", function(e) {
 			e.preventDefault(); 
+			$(this).html('&#10004'); 
 			submitAnswers(true);
 		});
 	}
